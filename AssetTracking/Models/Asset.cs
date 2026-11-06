@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using AssetTracking.Services;
 
 namespace AssetTracking.Models
 {
@@ -14,13 +16,12 @@ namespace AssetTracking.Models
         private const int YellowMonths = 6;
 
         // Initializes a new instance of the Asset class with the specified properties
-        public Asset(string brand, string model, DateTime purchaseDate, decimal priceUSD, decimal priceLocal, string office, string assetType)
+        public Asset(string brand, string model, DateTime purchaseDate, decimal priceUSD, OfficeLocation office, string assetType)
         {
             Brand = brand;
             Model = model;
             PurchaseDate = purchaseDate;
             PriceUSD = priceUSD;
-            PriceLocal = priceLocal;
             Office = office;
             AssetType = assetType;
         }
@@ -46,14 +47,24 @@ namespace AssetTracking.Models
             return string.Empty;
         }
 
-        // Gets or sets the brand of the asset
         public string Brand { get; set; }
 
         public string Model { get; set; }
+
         public DateTime PurchaseDate { get; set; }
+
         public decimal PriceUSD { get; set; }
-        public decimal PriceLocal { get; set; }
-        public string Office { get; set; }
+
+        // A read-only property that converts the price from USD to the local currency based on the office location using the CurrencyService
+        public decimal PriceLocal => CurrencyService.ConvertFromUSD(PriceUSD, Office);
+
+        // A read-only property that retrieves the currency code for the office location using the CurrencyService
+        public string CurrencyCode => CurrencyService.GetCurrencyCode(Office);
+
+        // Gets or sets the office location of the asset
+        public OfficeLocation Office { get; set; }
+
+        // Gets or sets the type of the asset (e.g., Laptop, Phone)
         public string AssetType { get; set; }
     }
 }

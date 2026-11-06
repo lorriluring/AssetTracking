@@ -8,8 +8,8 @@ namespace AssetTracking.Models
     internal class Computer : Asset
     {
         // Initializes a new instance of the Computer class with the specified properties
-        public Computer(string brand, string model, DateTime purchaseDate, decimal priceUSD, decimal priceLocal, string office, string assetType)
-            : base(brand, model, purchaseDate, priceUSD, priceLocal, office, assetType)
+        public Computer(string brand, string model, DateTime purchaseDate, decimal priceUSD, OfficeLocation office, string assetType)
+            : base(brand, model, purchaseDate, priceUSD, office, assetType)
         {
         }
     }
