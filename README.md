@@ -71,15 +71,15 @@ AssetTracking/
 
 Main menu:
 
-![Main menu](images/menu.png)
+![Main menu](screenshots/menu.png)
 
 Asset table with RED and YELLOW rows:
 
-![Asset table](images/asset-table.png)
+![Asset table](screenshots/asset-table.png)
 
 Adding an asset:
 
-![Adding an asset](images/add-asset.png)
+![Adding an asset](screenshots/add-asset.png)
 
 ## Team Members
 
