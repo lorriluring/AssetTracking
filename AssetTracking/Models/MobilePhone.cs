@@ -12,5 +12,11 @@ namespace AssetTracking.Models
             : base(brand, model, purchaseDate, priceUSD, office, "Phone")
         {
         }
+
+        // Overrides the GetDescription method to provide a description of the mobile phone asset
+        public override string GetDescription()
+        {
+            return $"{Brand} {Model}, Phone";
+        }
     }
 }

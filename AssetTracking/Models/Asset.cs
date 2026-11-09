@@ -4,7 +4,7 @@ using AssetTracking.Services;
 
 namespace AssetTracking.Models
 {
-    public class Asset
+    public abstract class Asset
     {
         // Define a constant for the lifespan of an asset in years
         private const int LifespanYears = 3;
@@ -24,6 +24,7 @@ namespace AssetTracking.Models
             PriceUSD = priceUSD;
             Office = office;
             AssetType = assetType;
+            Id = nextId++;
         }
 
         // Determines the status of the asset based on its purchase date and lifespan
@@ -47,12 +48,25 @@ namespace AssetTracking.Models
             return string.Empty;
         }
 
+        // A static field to keep track of the next unique ID for assets
+        private static int nextId = 1;
+
+        // A read-only property that gets the unique ID of the asset
+        public int Id { get; }
+
+        // An abstract method that must be implemented by derived classes to provide a description of the asset
+        public abstract string GetDescription();
+
+        // Gets or sets the brand of the asset
         public string Brand { get; set; }
 
+        // Gets or sets the model of the asset
         public string Model { get; set; }
 
+        // Gets or sets the purchase date of the asset
         public DateTime PurchaseDate { get; set; }
 
+        // Gets or sets the price of the asset in USD
         public decimal PriceUSD { get; set; }
 
         // A read-only property that converts the price from USD to the local currency based on the office location using the CurrencyService
@@ -66,5 +80,26 @@ namespace AssetTracking.Models
 
         // Gets or sets the type of the asset (e.g., Laptop, Phone)
         public string AssetType { get; set; }
+
+        // Calculates the age of the asset in months based on the purchase date and today's date
+        public int GetAgeInMonths()
+        {
+            DateTime today = DateTime.Today;
+            int ageInMonths = (today.Year - PurchaseDate.Year) * 12 + today.Month - PurchaseDate.Month;
+            if (today.Day < PurchaseDate.Day)
+            {
+                ageInMonths--;
+            }
+            return ageInMonths;
+        }
+
+        // Divide GetAgeInMonths() by 12 to get the years. Use the % operator to get the remaining months. Display in table as "X years Y months".
+        public string GetAgeText()
+        {
+            int ageInMonths = GetAgeInMonths();
+            int years = ageInMonths / 12;
+            int months = ageInMonths % 12;
+            return $"{years}y {months}m";
+        }
     }
 }
