@@ -41,7 +41,7 @@ AssetTracking/
 ├── Services/
 │   ├── AssetService.cs
 │   └── CurrencyService.cs
-├── images/
+├── screenshots/
 │   ├── menu.png
 │   ├── asset-table.png
 │   └── add-asset.png
